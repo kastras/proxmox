@@ -1,0 +1,15 @@
+---
+# tasks file for proxmox
+
+- proxmox_kvm:
+    api_user    : "{{ user_proxmox }}"
+    api_password: "{{ user_proxmox_password }}"
+    api_host    : "{{ host_proxmox }}"
+    name        : "{{ name_vm_proxmox }}"
+    node        : "{{ node_vm_proxmox }}"
+    net         : '{"net0":"virtio,bridge={{ bridge }}"}'
+    #virtio      : '{"virtio0":"VMs_LVM:10", "virtio1":"VMs:2,format=qcow2", "virtio2":"VMs:5,format=raw"}'
+    virtio      : '{"virtio0":"temporal:{{ node_gbs_hdd }},format=qcow2"}'
+    cores       : "{{ node_vm_promox_cores_cpu }}"
+    vcpus       : "{{ node_vm_promox_vcpu }}"
+    scsihw      : virtio-scsi-pci

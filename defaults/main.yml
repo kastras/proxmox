@@ -1,0 +1,10 @@
+---
+user_proxmox: root@pam
+user_proxmox_password: {{ "VaultContrasenhaProxmox" }}
+host_proxmox: 192.168.0.50
+name_vm_proxmox: probas
+node_vm_proxmox: casa
+node_vm_promox_cores_cpu: 2
+node_vm_promox_vcpu: 1
+bridge: vmbr0
+node_gbs_hdd: 10
