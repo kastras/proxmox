@@ -1,6 +1,6 @@
 ---
 user_proxmox: root@pam
-user_proxmox_password: {{ "VaultContrasenhaProxmox" }}
+user_proxmox_password: 
 host_proxmox: 192.168.0.50
 name_vm_proxmox: probas
 node_vm_proxmox: casa
