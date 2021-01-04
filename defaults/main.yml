@@ -1,6 +1,6 @@
 ---
 user_proxmox: root@pam
-user_proxmox_password: 
+user_proxmox_password:
 host_proxmox: 192.168.0.50
 name_vm_proxmox: probas
 node_vm_proxmox: casa
@@ -8,3 +8,8 @@ node_vm_promox_cores_cpu: 2
 node_vm_promox_vcpu: 1
 bridge: vmbr0
 node_gbs_hdd: 10
+name_vm_proxmox_origin_of_clone: fedora-origen
+action_vm_promox: new #options new or clone
+ip_address_vm: 127.0.0.1 #by defailt localhost
+ip_address_gateway_vm: 127.0.0.1 #by defailt localhost
+ip_address_dns_vm: 8.8.8.8

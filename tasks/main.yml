@@ -1,7 +1,8 @@
 ---
 # tasks file for proxmox
-
-- proxmox_kvm:
+#create or clone a virtualmachine, by default we put create.
+- name: Create the virtualmache "{{ name_vm_proxmox }}"
+  proxmox_kvm:
     api_user    : "{{ user_proxmox }}"
     api_password: "{{ user_proxmox_password }}"
     api_host    : "{{ host_proxmox }}"
@@ -13,3 +14,36 @@
     cores       : "{{ node_vm_promox_cores_cpu }}"
     vcpus       : "{{ node_vm_promox_vcpu }}"
     scsihw      : virtio-scsi-pci
+  when: action_vm_promox == "new"
+
+- name: Clone the virtualmache "{{ name_vm_proxmox }}"
+  proxmox_kvm:
+    api_user    : "{{ user_proxmox }}"
+    api_password: "{{ user_proxmox_password }}"
+    api_host    : "{{ host_proxmox }}"
+    clone       : "{{ name_vm_proxmox_origin_of_clone }}"   # The VM source
+    name        : "{{ name_vm_proxmox }}"
+    node        : "{{ node_vm_proxmox }}"
+    storage     : temporal
+    format      : qcow2
+    timeout     : 500  # Note: The task can take a while. Adapt
+  when: action_vm_promox == "clone"
+
+# Power on the virtualmache
+- name: Paramos la ejecución para el refresco del proxmox
+  pause:
+    seconds: 15
+
+- name: Poweron the virtualmache "{{ name_vm_proxmox }}"
+  proxmox_kvm:
+    api_user    : "{{ user_proxmox }}"
+    api_password: "{{ user_proxmox_password }}"
+    api_host    : "{{ host_proxmox }}"
+    name        : "{{ name_vm_proxmox }}"
+    node        : "{{ node_vm_proxmox }}"
+    state       : started
+
+ # by the moment, we only create vm and configure that for fedora or CentOS
+#- name: modificamos el SO
+#  include: modificaciones-fedora.yml
+#  when: ansible_distribution == "Fedora" or ansible_distribution == "CentOS"

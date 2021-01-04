@@ -1,0 +1,19 @@
+---
+- name: Update all packets
+  yum: name=* state=latest
+  when: ansible_distribution == "CentOS" or ansible_distribution == "Fedora"
+
+- name: Change ip address and gateway
+  lineinfile:
+    path: /etc/NetworkManager/system-connections/ens18.nmconnection
+    regexp: 'address1='
+    line: 'address1="{{ ip_address_vm }}"/"{{ ip_address_gateway_vm }}"'
+
+- name: Change the DNS servers.
+  lineinfile:
+    path: /etc/NetworkManager/system-connections/ens18.nmconnection
+    regexp: 'dns='
+    line: 'dns="{{ ip_address_dns_vm }}";'
+
+- name: Reboot the machine
+  reboot:
